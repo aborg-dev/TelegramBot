@@ -3,6 +3,7 @@ import json
 import datetime
 import time
 import argparse
+import os
 
 
 class BotHandler(object):
@@ -21,11 +22,12 @@ class BotHandler(object):
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('token')
-    args = parser.parse_args()
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('token')
+    # args = parser.parse_args()
 
-    bot = BotHandler(args.token)
+    token = os.environ["TELEGRAM_TOKEN"]
+    bot = BotHandler(token)
     offset = 0
 
     while True:
