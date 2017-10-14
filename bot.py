@@ -35,7 +35,8 @@ def main():
         for update in updates:
             print(update)
             chat_id = update["message"]["chat"]["id"]
-            bot.send_message(chat_id, "ECHO: " + update["message"]["text"])
+            if "text" in update["message"]:
+                bot.send_message(chat_id, "ECHO: " + update["message"]["text"])
             offset = max(offset, update['update_id'] + 1)
 
         time.sleep(1)
