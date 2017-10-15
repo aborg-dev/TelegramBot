@@ -9,7 +9,8 @@ This repo guides you through a simple echo Telegram bot example.
 3. Try sending a message to https://api.telegram.org/bot<token>/sendMessage?chat_id=ID&text=TEXT
 4. Get the code: `git clone https://github.com/akashin/TelegramBot.git`
 5. Install dependencies: `pip install -r requirements.txt`
-6. Run the bot with: `python bot.py`
+6. Get Yandex Translate API key https://translate.yandex.com/developers/keys
+7. Run the bot with: `python bot.py`
 
 ## Materials
 
