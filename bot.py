@@ -7,6 +7,8 @@ import time
 import argparse
 import os
 
+from yandex_translate import YandexTranslate
+
 
 class BotHandler(object):
     def __init__(self, token):
@@ -25,7 +27,8 @@ class BotHandler(object):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--token', type=str, default='')
+    parser.add_argument("--token", type=str, default="")
+    parser.add_argument("--yandex_api_key", type=str, default="")
     args = parser.parse_args()
 
     token = args.token
@@ -37,6 +40,11 @@ def main():
             return
         token = os.environ["TELEGRAM_TOKEN"]
 
+    if not args.yandex_api_key:
+        print("Please, set Yandex API key")
+        return
+    translate = YandexTranslate(args.yandex_api_key)
+
     bot = BotHandler(token)
     offset = 0
 
@@ -46,8 +54,17 @@ def main():
             print(update)
             chat_id = update["message"]["chat"]["id"]
             if "text" in update["message"]:
-                bot.send_message(chat_id, "ECHO: " + update["message"]["text"])
-            offset = max(offset, update['update_id'] + 1)
+                text = update["message"]["text"]
+                source_lang = translate.detect(text)
+                if source_lang == "en":
+                    dest_lang = "ru"
+                else:
+                    dest_lang = "en"
+
+                translated = translate.translate(text, dest_lang)
+                if "text" in translated:
+                    bot.send_message(chat_id, translated["text"])
+            offset = max(offset, update["update_id"] + 1)
 
         time.sleep(1)
 
