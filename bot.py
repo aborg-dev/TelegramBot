@@ -15,8 +15,10 @@ class BotHandler(object):
 
     def get_updates(self, offset=None, timeout=30):
         params = {"timeout": timeout, "offset": offset}
-        resp = requests.get(self.api_url + "getUpdates", params)
-        return resp.json()["result"]
+        resp = requests.get(self.api_url + "getUpdates", params).json()
+        if "result" not in resp:
+            return []
+        return resp["result"]
 
     def send_message(self, chat_id, text):
         params = {"chat_id": chat_id, "text": text}
