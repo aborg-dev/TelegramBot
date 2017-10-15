@@ -7,6 +7,7 @@ import time
 import argparse
 import os
 
+from chatterbot import ChatBot
 
 class BotHandler(object):
     def __init__(self, token):
@@ -40,13 +41,20 @@ def main():
     bot = BotHandler(token)
     offset = 0
 
+    chatbot = ChatBot(
+        'Ron Obvious', trainer='chatterbot.trainers.ChatterBotCorpusTrainer')
+
+    # Train based on the english corpus.
+    chatbot.train("chatterbot.corpus.english")
+
     while True:
         updates = bot.get_updates(offset=offset)
         for update in updates:
             print(update)
             chat_id = update["message"]["chat"]["id"]
             if "text" in update["message"]:
-                bot.send_message(chat_id, "ECHO: " + update["message"]["text"])
+                text = update["message"]["text"]
+                bot.send_message(chat_id, chatbot.get_response(text))
             offset = max(offset, update['update_id'] + 1)
 
         time.sleep(1)
