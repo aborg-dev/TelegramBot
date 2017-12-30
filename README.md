@@ -5,8 +5,8 @@ This repo guides you through a simple echo Telegram bot example.
 ## Local Setup
 
 1. Register bot by talking to @BotFather, and save the token
-2. Try out using this token to get updates at https://api.telegram.org/bot<token>/getUpdates
-3. Try sending a message to https://api.telegram.org/bot<token>/sendMessage?chat_id=ID&text=TEXT
+2. Try out using this token to get updates at https://api.telegram.org/bot`TOKEN`/getUpdates
+3. Try sending a message to https://api.telegram.org/bot`TOKEN`/sendMessage?chat_id=`ID`&text=`TEXT`
 4. Get the code: `git clone https://github.com/akashin/TelegramBot.git`
 5. Install dependencies: `pip install -r requirements.txt`
 6. Run the bot with: `python bot.py`
